@@ -40,7 +40,8 @@ async def upload_file(file: UploadFile = File(...)):
         # Store the DataFrame in a global variable for later use
         globals.uploaded_df = df
 
-        return {
+        return  {
+            "status_code": 200,
             "info": f"File {file.filename} uploaded successfully",
             "columns": df.columns.tolist(),
             "shape": df.shape,
