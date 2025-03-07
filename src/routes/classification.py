@@ -20,7 +20,7 @@ async def split_and_generate():
     try:
         if globals.uploaded_df is None or globals.target_column is None or globals.test_size is None:
             raise HTTPException(status_code=400, detail="Data, target column, or test size not set")
-        split_and_generate_files(globals.uploaded_df, globals.target_column, globals.test_size)
+        split_and_generate_files(globals.uploaded_df, globals.target_column, globals.test_size, globals.public_leaderboard)
         return {"message": "Files generated successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
