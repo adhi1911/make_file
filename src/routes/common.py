@@ -57,8 +57,8 @@ async def details(target: str = Form(...), test_size_value: float = Form(...), p
     Set the target column for the uploaded DataFrame and display value counts.
 
     - **target**: The name of the target column.
-    - **test_size**: The proportion of the dataset to include in the test split.
-    - **public_leaderboard**: The proportion of the test set to be used for the public leaderboard.
+    - **test_size_value**: The proportion of the dataset to include in the test split.
+    - **public_leaderboard_value**: The proportion of the test set to be used for the public leaderboard.
     
     Returns:
     - **target_column**: The name of the target column.
@@ -81,6 +81,8 @@ async def details(target: str = Form(...), test_size_value: float = Form(...), p
         globals.test_size = test_size_value
         globals.public_leaderboard = public_leaderboard_value
 
+        print(f"Received target: {target}, test_size_value: {test_size_value}, public_leaderboard_value: {public_leaderboard_value}")
+        
         # Extract the target column
         target_data = globals.uploaded_df[target].value_counts().to_dict()
 

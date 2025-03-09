@@ -25,8 +25,10 @@ export interface DetailsResponse {
 
 export interface GeneratedFilesResponse {
   train: string;
-  files : string;
+  files : string[];
   message: string;
+  public_leaderboard: number;
+ 
 }
 
 export interface HealthStatus {
@@ -53,39 +55,56 @@ export const setDetails = async (
   publicLeaderboard: number
 ): Promise<DetailsResponse> => {
   const formData = new FormData();
+  console.log(targetColumn, testSize, publicLeaderboard);
   formData.append('target', targetColumn);
   formData.append('test_size_value', testSize.toString());
   formData.append('public_leaderboard_value', publicLeaderboard.toString());
-
+  console.log(formData);
   const response = await fetch(`${API_BASE_URL}/common/details`, {
     method: 'POST',
     body: formData,
   });
+
+  if (!response.ok) {
+    throw new Error(`Error: ${response.status} ${response.statusText}`);
+  }
+
   return response.json();
 };
 
 export const generateFiles = async (
   isBinary: boolean,
+  publicLeaderboard: number,
   positiveLabel?: string,
   negativeLabel?: string,
   replaceLabel?: string | null
 ): Promise<GeneratedFilesResponse> => {
-  const endpoint = isBinary
-    ? '/classification/split_and_generate_classification'
-    : '/classification/split_and_generate';
+  try {
+    const endpoint = isBinary
+      ? '/classification/split_and_generate_classification'
+      : '/classification/split_and_generate';
 
-  const body = isBinary
-    ? JSON.stringify({ positive_label: positiveLabel, negative_label: negativeLabel, replace_label: replaceLabel })
-    : null;
+    const body = isBinary
+      ? JSON.stringify({ positive_label: positiveLabel, negative_label: negativeLabel, replace_label: replaceLabel, public_leaderboard: publicLeaderboard })
+      : JSON.stringify({ public_leaderboard: publicLeaderboard });
+   // console.log(body);
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    });
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: body,
-  });
-  return response.json();
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+
+    return response.json();
+  } catch (error: any) {
+    console.error('Failed to generate files:', error.message);
+    throw error;
+  }
 };
 
 export const downloadFile = async (filename: string): Promise<Blob> => {
