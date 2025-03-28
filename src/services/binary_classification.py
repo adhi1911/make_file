@@ -45,7 +45,7 @@ def split_and_generate_files(uploaded_df, target_column, test_size, public_leade
     # Create sample submission file with random predictions
     sample_submission_df = pd.DataFrame()
     sample_submission_df['ID'] = test_df['ID']
-    sample_submission_df[target_column] = np.random.randint(unique_values, size=len(test_df))
+    sample_submission_df[target_column] = np.random.choice(unique_values, size=len(test_df))
 
     # Save all files
     train_df.to_csv(os.path.join(GENERATED_FILES_DIRECTORY, 'train.csv'), index=False)

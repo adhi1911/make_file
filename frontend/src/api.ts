@@ -1,4 +1,5 @@
-const API_BASE_URL = 'https://splitgen-lavy.onrender.com';
+// const API_BASE_URL = 'https://splitgen-lavy.onrender.com';
+const API_BASE_URL = 'http://localhost:8004'; // Change this to your backend URL
 
 export interface FileUploadResponse {
   info: string;
