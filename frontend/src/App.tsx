@@ -125,7 +125,7 @@ function App() {
       <div className="max-w-4xl mx-auto py-8 px-4">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-gray-900">
-            SplitSavvy
+            SplitGen
           </h1>
           <p className="text-sm text-gray-600">
             Professional tool for preparing datasets for machine learning tasks

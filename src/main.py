@@ -4,12 +4,18 @@ from src.routes import common, classification
 import src.globals as globals
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+app = FastAPI(
+    name = "SplitGen API",
+    description = """
+    Professional tool for preparing datasets for machine learning tasks
+    
+    github: https://github.com/adhi1911/make_file""",
+    version = "0.1.0", 
+    )
 
 FRONT_END_PORT = 5173
 origins = [
-    "http://localhost",
-    "http://localhost:5173", # http://localhost:"PORT"
+    "*",
 ]
 
 app.add_middleware(

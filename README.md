@@ -1,6 +1,6 @@
-# SplitSavvy
+# SplitGen
 
-SplitSavvy is a powerful yet intuitive tool designed to streamline the dataset preparation process for machine learning tasks and data science competitions. With just a few clicks, users can upload CSV files, configure training/testing splits, and generate properly formatted datasets ready for model training or hosting Kaggle competitions.
+SplitGen is a powerful yet intuitive tool designed to streamline the dataset preparation process for machine learning tasks and data science competitions. With just a few clicks, users can upload CSV files, configure training/testing splits, and generate properly formatted datasets ready for model training or hosting Kaggle competitions.
 
 
 ## Features
