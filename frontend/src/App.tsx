@@ -121,16 +121,52 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
-      <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
-            Machine Learning Dataset Processor
+    <div className="min-h-screen bg-slate-50">
+      <div className="max-w-4xl mx-auto py-8 px-4">
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold text-gray-900">
+            SplitSavvy
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Upload your CSV dataset, configure processing parameters, and generate train/test splits for your machine learning models.
+          <p className="text-sm text-gray-600">
+            Professional tool for preparing datasets for machine learning tasks
           </p>
         </div>
+         {/* Progress Steps */}
+         <div className="bg-white rounded-lg shadow-sm p-4 mb-8">
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center">
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center ${healthStatus ? 'bg-green-100 text-green-600' : 'bg-gray-100'}`}>
+                {healthStatus && <span className="text-sm">✓</span>}
+              </div>
+              <span className="ml-2 text-sm">Connected</span>
+            </div>
+            <div className="flex items-center">
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center ${file ? 'bg-green-100 text-green-600' : 'bg-gray-100'}`}>
+                <span className="text-sm">{file ? '✓' : '2'}</span>
+              </div>
+              <span className="ml-2 text-sm">Dataset</span>
+            </div>
+            <div className="flex items-center">
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center ${detailsResponse ? 'bg-green-100 text-green-600' : 'bg-gray-100'}`}>
+                <span className="text-sm">{detailsResponse ? '✓' : '3'}</span>
+              </div>
+              <span className="ml-2 text-sm">Configuration</span>
+            </div>
+            <div className="flex items-center">
+              <div className={`w-6 h-6 rounded-full flex items-center justify-center ${isgeneratedFiles ? 'bg-green-100 text-green-600' : 'bg-gray-100'}`}>
+                <span className="text-sm">{isgeneratedFiles ? '✓' : '4'}</span>
+              </div>
+              <span className="ml-2 text-sm">Generation</span>
+            </div>
+          </div>
+        </div>
+
+        {error && (
+          <div className="mb-6 bg-red-50 border-l-4 border-red-400 p-4 rounded-md flex items-start">
+            <AlertCircle className="w-5 h-5 text-red-400 mr-3 flex-shrink-0 mt-0.5" />
+            <p className="text-red-700">{error}</p>
+          </div>
+        )}
 
         {error && (
           <div className="mb-8 bg-red-50 border-l-4 border-red-400 p-4 rounded-md flex items-start">
@@ -178,7 +214,7 @@ function App() {
 
           {isgeneratedFiles && (
             <DownloadComponent
-              generatedFiles={['test.csv', 'train.csv']}
+              generatedFiles={[ 'evaluation.csv','sample_submission.csv', 'test.csv', 'train.csv',]}
               onDownload={handleDownload}
             />
           )}
